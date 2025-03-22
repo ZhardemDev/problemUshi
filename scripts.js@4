@@ -1,0 +1,76 @@
+var activateVK=false;
+
+
+function showWidget(widgetName)
+{
+	document.getElementById('socialwidgets').className='show'+widgetName;
+	if(!activateVK && widgetName=='vk')
+	{
+		VK.Widgets.Group("vk_groups", {mode: 0, width: "230", height: "320", color1: "ffffff", color2: "2B587A", color3: "888888"}, 19251870);
+		activateVK=true;
+	}
+}
+
+
+function isValidEmail(email)
+{
+	return (/^([a-z0-9_\-\+]+\.)*[a-z0-9_\-\+]+@([a-z0-9][a-z0-9\-]*[a-z0-9]*\.)+[a-z]{2,4}$/i).test(email);
+}
+
+
+function trim(s)
+{
+	s=s.replace(/^\s+/, ''); 
+	return s.replace(/\s+$/, ''); 
+}
+
+
+function setMainHeight() {
+	if($("#simpleblock").length>0 && ($("#sidebar").height()>$("#simpleblock").height()-$("#simpleblock").offset().top+$("#sidebar").offset().top-25)) {
+		var h=$("#sidebar").height()-$("#simpleblock").offset().top+$("#sidebar").offset().top-25;
+		$("#simpleblock").css("height",h+"px");
+	}
+}
+
+
+function scrollToDiv(element,navheight){
+	var offset = element.offset();
+	var offsetTop = offset.top;
+	var totalScroll = offsetTop-navheight;
+	$('body,html').animate({
+			scrollTop: totalScroll
+	}, 500);
+}
+
+
+
+$(document).ready(function(){
+
+	$('#tocomments').click(function(){
+		var element = $($(this).attr('href'));
+		scrollToDiv(element,99);
+		return false;
+	});
+
+	if($("#main").length>0 && $("#sidebar").length>0) {
+		$('#sidebar').hcSticky({top: 100, bottom: 25});
+		if(!$("#comments").length>0) $('#main').hcSticky({top: 100, bottom: 25});
+	}
+
+	if($("#leftcolumn").length>0 && $("#rightcolumn").length>0)
+	{
+		if($("#leftcolumn").height()>$("#rightcolumn").height()) $("#rightcolumn").css("height",$("#leftcolumn").height()+"px");;
+	}
+
+	/*
+	$(window).resize(function() {
+	});
+	*/
+
+});
+
+
+window.onload = function() {
+
+
+}
